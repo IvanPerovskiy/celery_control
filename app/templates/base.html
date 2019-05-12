@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% if title %}
+        <title>{{ title }} - microblog</title>
+        {% else %}
+        <title>Celery_control</title>
+        {% endif %}
+    </head>
+    <body>
+        <div>
+            Celery_control:
+            <a href="{{ url_for('index') }}">Home</a>
+
+
+
+
+        </div>
+        {% block content %}{% endblock %}
+    </body>
+</html>
