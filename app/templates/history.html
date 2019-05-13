@@ -1,10 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block content %}
+    {% if success_tasks %}
+        <h1> Успешно выполненные задачи</h1>
+        {% for task in success_tasks %}
+            <div><p>{{ task.task }}, {{ task.args }},{{ task.result }}</b></p></div>
+        {% endfor %}
+    {% else %}
+        <h1> Успешно выполненных задач не найдено</h1>
+    {% endif %}
+
+    {% if future_tasks %}
+        <h1> Невыполненные задачи</h1>
+        {% for task in failure_tasks %}
+            <div><p>{{ task.task }}, {{ task.args }},{{ task.result }}</b></p></div>
+        {% endfor %}
+    {% else %}
+        <h1> Невыполненных задач не найдено</h1>
+    {% endif %}
+{% endblock %}

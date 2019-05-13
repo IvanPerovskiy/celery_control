@@ -22,3 +22,4 @@ class Config(object):
     CELERY_BROKER_URL='pyamqp://guest@localhost//',
     CELERY_RESULT_BACKEND=create_result_backend(ENGINE,USER,PASSWORD,HOST,DATABASE)
     CELERY_IMPORTS = ("app.tasks", )
+    CELERY_TIMEZONE = 'Europe/Moscow'

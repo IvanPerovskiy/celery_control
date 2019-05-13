@@ -1,4 +1,4 @@
-from celery.signals import after_task_publish,task_prerun, task_postrun, task_success, task_failure, task_retry
+from celery.signals import after_task_publish, task_prerun, task_postrun, task_success, task_failure, task_retry
 from app import db
 from app.models import Task
 from datetime import datetime
@@ -22,18 +22,17 @@ def task_sent_handler(sender=None, headers=None, body=None, **kwargs):
                      timelimit_soft = info['timelimit'][0],
                      timelimit_hard = info['timelimit'][1],
                      status = 'PENDING',
-                     published_at = datetime.now()
+                     published_at = str(datetime.now())
                     )
     db.session.add(next_task)
     db.session.commit()
-
 
 
 @task_prerun.connect
 def task_prerun_handler(sender=None, task_id=None,task=None,**kwargs):
     run_task = Task.query.filter_by(task_id = task_id).first()
     run_task.status ='STARTED'
-    run_task.begin = datetime.now()
+    run_task.begin = str(datetime.now())
     db.session.add(run_task)
     db.session.commit()
 
@@ -43,7 +42,11 @@ def task_success_handler(result=None,sender=None, **kwargs):
     success_task = Task.query.filter_by(task_id = sender.request.id).first()
     success_task.status ='SUCCESS'
     success_task.result=result
-    success_task.end = datetime.now()
+    def calculate_duration(begin):
+        begin = datetime.strptime(begin, '%Y-%m-%d %H:%M:%S.%f')
+        end = datetime.now()
+        return str(end - begin)
+    success_task.duration = calculate_duration(success_task.begin)
     db.session.add(success_task)
     db.session.commit()
 

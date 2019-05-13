@@ -20,9 +20,11 @@ class Task(db.Model):
     timelimit_hard = Column(Integer)
     status = Column(String(16))
     result = Column(String(1024))
-    begin = Column(DateTime)
-    end = Column(DateTime)
+    begin = Column(String(128))
+    duration = Column(String(128))
     published_at = Column(DateTime)
+
+
 
 
 
