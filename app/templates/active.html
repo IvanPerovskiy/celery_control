@@ -4,7 +4,7 @@
     {% if future_tasks %}
         <h1> Отложенные задачи</h1>
         {% for task in future_tasks %}
-            <div><p>{{ task.task }}, {{ task.args }}</b></p></div>
+            <div><p>{{ task.task }}{{ task.args }}</b></p></div>
         {% endfor %}
     {% else %}
         <h1> Отложенных задач не найдено</h1>
@@ -13,7 +13,7 @@
     {% if active_tasks %}
         <h1> Активные задачи</h1>
         {% for task in active_tasks %}
-            <div><p>{{ task.task }}, {{ task.args }}</b></p></div>
+            <div><p>{{ task.task }}{{ task.args }}</b></p></div>
         {% endfor %}
     {% else %}
         <h1> Активных задач не найдено</h1>

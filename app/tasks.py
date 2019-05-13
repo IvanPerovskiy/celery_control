@@ -1,4 +1,5 @@
 from app import celery
+import app.signals
 
 @celery.task
 def add(x, y):
@@ -14,7 +15,11 @@ def mul(x, y):
 
 @celery.task
 def div(x, y):
-    return x / y
+    try:
+        res = x/y
+    except ZeroDivisionError:
+       return False
+    return res
 
 @celery.task
 def gen_numbers(x,y,z):
