@@ -1,10 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html>
+    <head>
+        {% if title %}
+        <title>{{ title }} - microblog</title>
+        {% else %}
+        <title>Celery_control</title>
+        {% endif %}
+    </head>
+    <body>
+        <div>
+            Celery_control:
+            <a href="{{ url_for('index') }}">Главная страница</a>
+            <a href="{{ url_for('active') }}">Список активных и отложенных задач</a>
+            <a href="{{ url_for('history') }}">Журнал выполненных задач</a>
 
-</body>
+        </div>
+        {% block content %}{% endblock %}
+    </body>
 </html>
